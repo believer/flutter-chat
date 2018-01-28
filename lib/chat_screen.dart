@@ -87,7 +87,9 @@ class ChatScreenState extends State<ChatScreen> {
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
+      data: new IconThemeData(
+        color: Theme.of(context).accentColor,
+      ),
       child: new Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: new Row(
@@ -108,8 +110,9 @@ class ChatScreenState extends State<ChatScreen> {
                   });
                 },
                 onSubmitted: _handleSubmitted,
-                decoration:
-                    new InputDecoration.collapsed(hintText: 'Skriv något'),
+                decoration: new InputDecoration.collapsed(
+                  hintText: 'Skriv något',
+                ),
               ),
             ),
             new Container(
@@ -127,7 +130,7 @@ class ChatScreenState extends State<ChatScreen> {
                           ? () => _handleSubmitted(_textController.text)
                           : null,
                     ),
-            )
+            ),
           ],
         ),
       ),
@@ -145,7 +148,9 @@ class ChatScreenState extends State<ChatScreen> {
         decoration: Theme.of(context).platform == TargetPlatform.iOS
             ? new BoxDecoration(
                 border: new Border(
-                  top: new BorderSide(color: Colors.grey[200]),
+                  top: new BorderSide(
+                    color: Colors.grey[200],
+                  ),
                 ),
               )
             : null,
@@ -157,8 +162,11 @@ class ChatScreenState extends State<ChatScreen> {
                 sort: (a, b) => b.key.compareTo(a.key),
                 padding: const EdgeInsets.all(8.0),
                 reverse: true,
-                itemBuilder:
-                    (_, DataSnapshot snapshot, Animation<double> animation) {
+                itemBuilder: (
+                  _,
+                  DataSnapshot snapshot,
+                  Animation<double> animation,
+                ) {
                   return new ChatMessage(
                     snapshot: snapshot,
                     animation: animation,

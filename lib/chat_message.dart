@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-
-const String _name = 'Rickard';
+import 'package:firebase_database/firebase_database.dart';
 
 class ChatMessage extends StatelessWidget {
   ChatMessage({
-    this.text,
-    this.animationController,
+    this.snapshot,
+    this.animation,
   });
 
-  final String text;
-  final AnimationController animationController;
+  final DataSnapshot snapshot;
+  final Animation animation;
 
   @override
   Widget build(BuildContext context) {
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(
-        parent: animationController,
+        parent: animation,
         curve: Curves.easeInOut,
       ),
       axisAlignment: 0.0,
@@ -27,17 +26,26 @@ class ChatMessage extends StatelessWidget {
             new Container(
               margin: const EdgeInsets.only(right: 16.0),
               child: new CircleAvatar(
-                child: new Text(_name[0]),
+                backgroundImage:
+                    new NetworkImage(snapshot.value['senderAvatar']),
               ),
             ),
             new Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(_name, style: Theme.of(context).textTheme.subhead),
+                  new Text(
+                    snapshot.value['senderName'],
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
-                    child: new Text(text),
+                    child: snapshot.value['imageUrl'] != null
+                        ? new Image.network(
+                            snapshot.value['imageUrl'],
+                            width: 250.0,
+                          )
+                        : new Text(snapshot.value['text']),
                   ),
                 ],
               ),
